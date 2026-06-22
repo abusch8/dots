@@ -14,9 +14,10 @@ EOF
 echo -e '\e[0m'
 
 force=false
-for arg in "$@"; do
-    case "$arg" in
-        --force|-f) force=true ;;
+
+while getopts "f" opt; do
+    case $opt in
+        f) force=true ;;
     esac
 done
 
