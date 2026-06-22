@@ -87,6 +87,9 @@ nnoremap <Leader>b :ls<CR>:b<Space>
 noremap <leader>r :set relativenumber!<CR>
 noremap <leader>R :set relativenumber! number!<CR>
 
+" Toggle colorcolumn
+nnoremap <silent> <leader>l :execute "set colorcolumn=" . (&colorcolumn == "" ? "100" : "")<CR>
+
 " Netrw
 let g:netrw_banner=0
 let g:netrw_bufsettings='number relativenumber'
