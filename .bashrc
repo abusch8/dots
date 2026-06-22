@@ -10,6 +10,7 @@ PS1_COLOR="${MAGENTA}"
 
 export DOTS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 source "${DOTS_DIR}/.env"
+source /usr/share/bash-completion/completions/git
 
 PS1="${PS1_COLOR}\u${RESET}@${PS1_COLOR}\h${RESET}:\w\n${BOLD}${GREEN}\$${RESET} "
 
