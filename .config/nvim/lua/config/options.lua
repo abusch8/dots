@@ -3,9 +3,6 @@ vim.opt.cmdheight = 0
 vim.opt.termguicolors = true
 vim.g.netrw_liststyle = 1
 
-vim.opt.spell = true
-vim.opt.spelllang = { "en_us" }
-
 vim.diagnostic.config({
     virtual_text = {
         enable = true,
