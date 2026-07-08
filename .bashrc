@@ -21,6 +21,7 @@ alias ssh='ssh -q'
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -l'
 alias vi='nvim'
+alias dc='docker compose'
 alias k='kubectl'
 
 shopt -s extglob
