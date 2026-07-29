@@ -56,3 +56,7 @@ function fs {
     find -L "${3:-.}" -type f -print0 | xargs -0 sed -i "s|${1}|${2}|g"
 }
 
+function vg {
+    git diff --name-only | xargs nvim
+}
+
