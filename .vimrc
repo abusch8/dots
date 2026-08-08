@@ -9,13 +9,6 @@ let mapleader = " "
 
 " Appearance
 set title
-" set laststatus=2
-" set statusline=
-" set statusline+=%<%f\ %h%w%m%r%=
-" set statusline+=\ %{&ff}
-" set statusline+=\ %{&fileencoding}
-" set statusline+=%14.(%l:%c%V%)
-" set statusline+=\ %P
 
 " Utils
 set ruler
