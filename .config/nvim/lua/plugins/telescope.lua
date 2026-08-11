@@ -14,13 +14,16 @@ return {
             local builtin = require("telescope.builtin")
             local icons = require("icons")
 
+            local previewless_opts = {
+                previewer = false,
+                layout_config = {
+                    width = 0.5,
+                    height = 0.5,
+                },
+            }
+
             local function find_files()
-                builtin.find_files({
-                    previewer = false,
-                    layout_config = {
-                        width = 0.5,
-                        height = 0.5,
-                    },
+                builtin.find_files(vim.tbl_extend("force", previewless_opts, {
                     file_ignore_patterns = {
                         ".git",
                         ".npm",
@@ -30,7 +33,7 @@ return {
                         "node_modules",
                         "target",
                     },
-                })
+                }))
             end
 
             local function live_grep()
@@ -45,7 +48,7 @@ return {
 
             vim.keymap.set("n", "<leader>ff", builtin.find_files)
             vim.keymap.set("n", "<leader>fz", builtin.live_grep)
-            vim.keymap.set("n", "<leader>fb", builtin.buffers)
+            vim.keymap.set("n", "<leader>fb", function() builtin.buffers(previewless_opts) end)
             vim.keymap.set("n", "<leader>fh", builtin.help_tags)
 
             local icon = icons.get("telescope")
