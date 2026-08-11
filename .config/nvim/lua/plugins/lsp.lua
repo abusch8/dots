@@ -6,7 +6,13 @@ return {
     {
         "williamboman/mason-lspconfig.nvim",
         opts = {
-            ensure_installed = { "lua_ls", "bashls", "pyright", "lemminx" },
+            ensure_installed = {
+                "bashls",
+                "clangd",
+                "lua_ls",
+                "pyright",
+                "lemminx",
+            },
         },
         lazy = false,
     },
