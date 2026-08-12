@@ -67,7 +67,7 @@ nnoremap q <Nop>
 nnoremap qq q
 
 " Clear trailing white space on write
-autocmd BufWritePre * %s/\s\+$//e
+autocmd BufWritePre * let w:view = winsaveview() | keeppatterns %s/\s\+$//e | call winrestview(w:view)
 
 " Buffer navigation keymaps
 noremap gb :bn<CR>
@@ -76,17 +76,39 @@ autocmd filetype netrw nmap <buffer> gb :bn<CR>
 autocmd filetype netrw nmap <buffer> gB :bp<CR>
 nnoremap <Leader>b :ls<CR>:b<Space>
 
-noremap - <CMD>Ex<CR>
-
-" Toggle line numbers
-noremap <leader>r :set relativenumber!<CR>
-noremap <leader>R :set relativenumber! number!<CR>
-
-" Toggle colorcolumn
-nnoremap <silent> <leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? "100" : "")<CR>
+" Delete buffer without changing window layout
+command! Bclose bp | bd #
 
 " Netrw
 let g:netrw_banner=0
 let g:netrw_bufsettings='number relativenumber'
 autocmd FileType netrw setlocal nocursorline
+noremap - <CMD>Ex<CR>
+
+" Toggle colorcolumn
+nnoremap <silent> <leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? "100" : "")<CR>
+
+" Toggle line numbers
+let g:numbers_relative = 0
+
+function! ToggleNumbers() abort
+    if &number || &relativenumber
+        let g:numbers_relative = &relativenumber
+        set nonumber norelativenumber
+    else
+        if g:numbers_relative
+            set number relativenumber
+        else
+            set number norelativenumber
+        endif
+    endif
+endfunction
+
+function! ToggleRelativeNumbers() abort
+    set relativenumber!
+    let g:numbers_relative = &relativenumber
+endfunction
+
+nnoremap <leader>n :call ToggleRelativeNumbers()<CR>
+nnoremap <leader>N :call ToggleNumbers()<CR>
 
