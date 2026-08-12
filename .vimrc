@@ -95,20 +95,18 @@ function! ToggleNumbers() abort
     if &number || &relativenumber
         let g:numbers_relative = &relativenumber
         set nonumber norelativenumber
+    elseif g:numbers_relative
+        set number relativenumber
     else
-        if g:numbers_relative
-            set number relativenumber
-        else
-            set number norelativenumber
-        endif
+        set number norelativenumber
     endif
 endfunction
 
 function! ToggleRelativeNumbers() abort
-    if ! &number && ! &relativenumber
-        set number relativenumber
-    else
+    if &number || &relativenumber
         set relativenumber!
+    else
+        set number relativenumber
     endif
     let g:numbers_relative = &relativenumber
 endfunction
