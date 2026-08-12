@@ -105,7 +105,11 @@ function! ToggleNumbers() abort
 endfunction
 
 function! ToggleRelativeNumbers() abort
-    set relativenumber!
+    if ! &number && ! &relativenumber
+        set number relativenumber
+    else
+        set relativenumber!
+    endif
     let g:numbers_relative = &relativenumber
 endfunction
 
