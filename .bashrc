@@ -17,7 +17,7 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 
-PROMPT_COMMAND='__git_ps1 "${PS1_COLOR}\u${RESET}@${PS1_COLOR}\h${RESET}: \w" "\n${BOLD}${GREEN}\$${RESET} " " (%s)"'
+PROMPT_COMMAND='__git_ps1 "${PS1_COLOR}\u${RESET}@${PS1_COLOR}\h${RESET}:\w" "\n${BOLD}${GREEN}\$${RESET} " " (%s)"'
 
 export PAGER=less
 export PATH="${HOME}/bin:${HOME}/.local/share/nvim/mason/bin:${PATH}"
