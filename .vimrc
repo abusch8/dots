@@ -66,7 +66,7 @@ vnoremap p "_dP
 nnoremap q <Nop>
 nnoremap qq q
 
-" Clear trailing white space on write
+" Clear trailing white space on write, preserve cursor position
 autocmd BufWritePre * let w:view = winsaveview() | keeppatterns %s/\s\+$//e | call winrestview(w:view)
 
 " Buffer navigation keymaps
@@ -85,7 +85,7 @@ let g:netrw_bufsettings='number relativenumber'
 autocmd FileType netrw setlocal nocursorline
 noremap - <CMD>Ex<CR>
 
-" Toggle colorcolumn
+" Toggle color column
 nnoremap <silent> <leader>cc :execute "set colorcolumn=" . (&colorcolumn == "" ? "100" : "")<CR>
 
 " Toggle line numbers

@@ -70,6 +70,7 @@ git_config "core.pager"             "less -R"
 git_config "color.status"           "always"
 git_config "http.sslVerify"         "false"
 git_config "merge.tool"             "nvimdiff"
+git_config "merge.autoStash"        "true"
 git_config "pull.rebase"            "false"
 git_config "push.autoSetupRemote"   "true"
 

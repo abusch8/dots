@@ -10,9 +10,14 @@ PS1_COLOR="${MAGENTA}"
 
 export DOTS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 source "${DOTS_DIR}/.env"
+source "${DOTS_DIR}/git-sh-prompt.sh"
 source /usr/share/bash-completion/completions/git
 
-PS1="${PS1_COLOR}\u${RESET}@${PS1_COLOR}\h${RESET}:\w\n${BOLD}${GREEN}\$${RESET} "
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM="auto"
+
+PROMPT_COMMAND='__git_ps1 "${PS1_COLOR}\u${RESET}@${PS1_COLOR}\h${RESET}: \w" "\n${BOLD}${GREEN}\$${RESET} " " (%s)"'
 
 export PAGER=less
 export PATH="${HOME}/bin:${HOME}/.local/share/nvim/mason/bin:${PATH}"
