@@ -1,5 +1,7 @@
 [ -f /etc/bashrc ] && . /etc/bashrc
 
+shopt -s extglob
+
 BOLD='\[\e[1m\]'
 RED='\[\e[31m\]'
 GREEN='\[\e[32m\]'
@@ -13,23 +15,34 @@ source "${DOTS_DIR}/.env"
 source "${DOTS_DIR}/git-sh-prompt.sh"
 source /usr/share/bash-completion/completions/git
 
+export PAGER=less
+export PATH="${HOME}/bin:${HOME}/.local/share/nvim/mason/bin:${PATH}"
+
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 
 PROMPT_COMMAND='__git_ps1 "${PS1_COLOR}\u${RESET}@${PS1_COLOR}\h${RESET}:\w" "\n${BOLD}${GREEN}\$${RESET} " " (%s)"'
 
-export PAGER=less
-export PATH="${HOME}/bin:${HOME}/.local/share/nvim/mason/bin:${PATH}"
-
 alias ssh='ssh -q'
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -l'
-alias vi='nvim'
-alias dc='docker compose'
-alias k='kubectl'
 
-shopt -s extglob
+if command -v nvim >/dev/null 2>&1; then
+    alias vi='nvim'
+    export EDITOR='nvim'
+    export VISUAL='nvim'
+else
+    alias vi='vim'
+    export EDITOR='vim'
+    export VISUAL='vim'
+fi
+if command -v docker compose >/dev/null 2>&1; then
+    alias dc='docker compose'
+fi
+if command -v kubectl >/dev/null 2>&1; then
+    alias k='kubectl'
+fi
 
 function ff {
     if (( $# < 1 )); then return 1; fi

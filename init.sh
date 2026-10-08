@@ -54,6 +54,7 @@ if [[ ! -f "$DIR/.env" ]]; then
 fi
 
 symlink "$DIR/.bashrc"              "$HOME/.bashrc"
+symlink "$DIR/.bash_profile"        "$HOME/.bash_profile"
 symlink "$DIR/.vimrc"               "$HOME/.vimrc"
 symlink "$DIR/.tmux.conf"           "$HOME/.tmux.conf"
 symlink "$DIR/.config/nvim"         "$HOME/.config/nvim"
