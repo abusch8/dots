@@ -31,10 +31,12 @@ alias ll='ls --color=auto -l'
 
 if command -v nvim >/dev/null 2>&1; then
     alias vi='nvim'
+
     export EDITOR='nvim'
     export VISUAL='nvim'
 else
     alias vi='vim'
+
     export EDITOR='vim'
     export VISUAL='vim'
 fi
@@ -52,7 +54,7 @@ function ff {
 
 function vf {
     if (( $# < 1 )); then return 1; fi
-    find -L "${2:-.}" -type f -path "*${1}*" \( -empty -o -exec grep -Iq . {} \; \) -print0 2>/dev/null | xargs -0 nvim
+    find -L "${2:-.}" -type f -path "*${1}*" \( -empty -o -exec grep -Iq . {} \; \) -print0 2>/dev/null | xargs -0 ${EDITOR}
 }
 
 function fd {
@@ -67,7 +69,7 @@ function fz {
 
 function vz {
     if (( $# < 1 )); then return 1; fi
-    find -L "${2:-.}" -type f -print0 2>/dev/null | xargs -0 grep -lIZ "${1}" | xargs -0 nvim -c "/${1}"
+    find -L "${2:-.}" -type f -print0 2>/dev/null | xargs -0 grep -lIZ "${1}" | xargs -0 ${EDITOR} -c "/${1}"
 }
 
 function fs {
@@ -76,6 +78,6 @@ function fs {
 }
 
 function vg {
-    git diff --name-only | xargs nvim
+    git diff --name-only | xargs ${EDITOR}
 }
 
