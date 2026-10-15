@@ -23,7 +23,6 @@ export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 
 PROMPT_COMMAND='__git_ps1 "${PS1_COLOR}\u${RESET}@${PS1_COLOR}\h${RESET}:\w" "\n${BOLD}${GREEN}\$${RESET} " " (%s)"'
-# PS1="${PS1_COLOR}\u${RESET}@${PS1_COLOR}\h${RESET}:\w$(__git_ps1)\n${BOLD}${GREEN}\$${RESET} "
 
 alias ssh='ssh -q'
 alias ls='ls --color=auto'
@@ -54,7 +53,8 @@ function ff {
 
 function vf {
     if (( $# < 1 )); then return 1; fi
-    find -L "${2:-.}" -type f -path "*${1}*" \( -empty -o -exec grep -Iq . {} \; \) -print0 2>/dev/null | xargs -0 ${EDITOR}
+    find -L "${2:-.}" -type f -path "*${1}*" \( -empty -o -exec grep -Iq . {} \; \) -print0 2>/dev/null \
+        | xargs -0 -o ${EDITOR}
 }
 
 function fd {
@@ -69,15 +69,18 @@ function fz {
 
 function vz {
     if (( $# < 1 )); then return 1; fi
-    find -L "${2:-.}" -type f -print0 2>/dev/null | xargs -0 grep -lIZ "${1}" | xargs -0 ${EDITOR} -c "/${1}"
+    find -L "${2:-.}" -type f -print0 2>/dev/null \
+        | xargs -0 grep -lIZ "${1}" \
+        | xargs -0 -o ${EDITOR} -c "let @/='${1}'" -c "silent! normal! n"
 }
 
 function fs {
     if (( $# < 2 )) || ! git -C "${3:-.}" rev-parse --is-inside-work-tree &>/dev/null; then return 1; fi
-    find -L "${3:-.}" -type f -print0 | xargs -0 sed -i "s|${1}|${2}|g"
+    find -L "${3:-.}" -type f -print0 \
+        | xargs -0 sed -i "s|${1}|${2}|g"
 }
 
 function vg {
-    git diff --name-only | xargs ${EDITOR}
+    git diff --name-only | xargs -o ${EDITOR}
 }
 
