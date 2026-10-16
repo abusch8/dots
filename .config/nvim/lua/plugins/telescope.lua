@@ -64,6 +64,10 @@ return {
                 extensions = {
                     live_grep_args = {
                         auto_quoting = true,
+                        additional_args = {
+                            "--hidden",
+                            "--glob", "!**/.git/*",
+                        },
                         mappings = {
                             i = {
                                 ["<C-k>"] = lga_actions.quote_prompt(),
