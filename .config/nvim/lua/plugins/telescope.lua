@@ -50,7 +50,8 @@ return {
             vim.keymap.set("n", "<leader>ff", builtin.find_files)
             vim.keymap.set("n", "<leader>fz", telescope.extensions.live_grep_args.live_grep_args)
             vim.keymap.set("n", "<leader>fb", function() builtin.buffers(previewless_opts) end)
-            vim.keymap.set("n", "<leader>fh", builtin.help_tags)
+            vim.keymap.set("n", "<leader>fr", builtin.resume)
+            vim.keymap.set("n", "<leader>fh", builtin.history)
 
             local icon = icons.get("telescope")
 
