@@ -44,8 +44,15 @@ return {
             end
 
             vim.keymap.set("n", "<C-p>", find_files)
-            -- vim.keymap.set("n", "<leader>f*", function() vim.cmd("normal! *"); lga_shortcuts.grep_word_under_cursor() end)
-            vim.keymap.set("n", "<leader>f*", lga_shortcuts.grep_word_under_cursor)
+            vim.keymap.set("n", "<leader>f*", function()
+                local cword = vim.fn.expand("<cword>")
+                if cword == "" then return end
+
+                vim.fn.setreg("/", "\\<" .. cword .. "\\>")
+                vim.cmd("set hlsearch")
+
+                lga_shortcuts.grep_word_under_cursor()
+            end)
             vim.keymap.set("v", "<leader>f*", lga_shortcuts.grep_visual_selection)
             vim.keymap.set("n", "<leader>ff", builtin.find_files)
             vim.keymap.set("n", "<leader>fz", telescope.extensions.live_grep_args.live_grep_args)
@@ -73,7 +80,7 @@ return {
                                 ["<C-k>"] = lga_actions.quote_prompt(),
                                 ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
                                 -- freeze the current list and start a fuzzy search in the frozen list
-                                -- ["<C-z>"] = lga_actions.to_fuzzy_refine,
+                                -- ["<C-space>"] = lga_actions.to_fuzzy_refine,
                             },
                         },
                     },
