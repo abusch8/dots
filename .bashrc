@@ -1,14 +1,16 @@
 [ -f /etc/bashrc ] && . /etc/bashrc
 
+HISTCONTROL=ignoredups:erasedups
+
+shopt -s histappend
 shopt -s extglob
 
 BOLD='\[\e[1m\]'
-RED='\[\e[31m\]'
 GREEN='\[\e[32m\]'
 MAGENTA='\[\e[35m\]'
 RESET='\[\e[0m\]'
 
-PS1_COLOR="${MAGENTA}"
+PS1_COLOR=${MAGENTA}
 
 export DOTS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 source "${DOTS_DIR}/.env"
@@ -22,23 +24,18 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 
-PROMPT_COMMAND='__git_ps1 "${PS1_COLOR}\u${RESET}@${PS1_COLOR}\h${RESET}:\w" "\n${BOLD}${GREEN}\$${RESET} " " (%s)"'
+PROMPT_COMMAND='history -a; history -c; history -r;
+    __git_ps1 "${PS1_COLOR}\u${RESET}@${PS1_COLOR}\h${RESET}:\w" "\n${BOLD}${GREEN}\$${RESET} " " (%s)"'
 
 alias ssh='ssh -q'
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -l'
 
-if command -v nvim >/dev/null 2>&1; then
-    alias vi='nvim'
+command -v nvim >/dev/null 2>&1 && VI="nvim" || VI="vim"
+alias vi=${VI}
+export EDITOR=${VI}
+export VISUAL=${VI}
 
-    export EDITOR='nvim'
-    export VISUAL='nvim'
-else
-    alias vi='vim'
-
-    export EDITOR='vim'
-    export VISUAL='vim'
-fi
 if command -v docker compose >/dev/null 2>&1; then
     alias dc='docker compose'
 fi
@@ -54,7 +51,7 @@ function ff {
 function vf {
     if (( $# < 1 )); then return 1; fi
     find -L "${2:-.}" -type f -path "*${1}*" \( -empty -o -exec grep -Iq . {} \; \) -print0 2>/dev/null \
-        | xargs -0 -o ${EDITOR}
+        | xargs -0 -o ${VI}
 }
 
 function fd {
@@ -71,7 +68,7 @@ function vz {
     if (( $# < 1 )); then return 1; fi
     find -L "${2:-.}" -type f -print0 2>/dev/null \
         | xargs -0 grep -lIZ "${1}" \
-        | xargs -0 -o ${EDITOR} -c "let @/='${1}'" -c "silent! normal! n"
+        | xargs -0 -o ${VI} -c "let @/='${1}'" -c "silent! normal! n"
 }
 
 function fs {
@@ -81,6 +78,6 @@ function fs {
 }
 
 function vg {
-    git diff --name-only | xargs -o ${EDITOR}
+    git diff --name-only | xargs -o ${VI}
 }
 
