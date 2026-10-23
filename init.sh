@@ -60,6 +60,10 @@ symlink "$DIR/.tmux.conf"           "$HOME/.tmux.conf"
 symlink "$DIR/.config/nvim"         "$HOME/.config/nvim"
 symlink "$DIR/.env"                 "$HOME/.config/nvim/.env"
 
+echo
+echo "sourcing $HOME/.bashrc"
+source $HOME/.bashrc
+
 git_config "alias.file-diff"        "diff --no-index"
 git_config "alias.unstage"          "reset HEAD"
 git_config "alias.uncommit"         "reset HEAD^ --mixed"
@@ -78,7 +82,7 @@ git_config "push.autoSetupRemote"   "true"
 
 if [[ ! -d "$TPM_INSTALL_PATH" ]]; then
     echo
-    echo "installing tmux plugin manager..."
+    echo "installing tmux plugin manager to $TPM_INSTALL_PATH"
     mkdir -p "$TPM_INSTALL_PATH"
     git clone https://github.com/tmux-plugins/tpm "$TPM_INSTALL_PATH"
 fi
