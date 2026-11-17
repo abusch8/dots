@@ -30,6 +30,7 @@ PROMPT_COMMAND='history -a; history -c; history -r;
 alias ssh='ssh -q'
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -l'
+alias diff='diff --color=always -u'
 
 command -v nvim >/dev/null 2>&1 && VI="nvim" || VI="vim"
 alias vi=${VI}

@@ -64,7 +64,6 @@ echo
 echo "sourcing $HOME/.bashrc"
 source $HOME/.bashrc
 
-git_config "alias.file-diff"        "diff --no-index"
 git_config "alias.unstage"          "reset HEAD"
 git_config "alias.uncommit"         "reset HEAD^ --mixed"
 git_config "branch.sort"            "committerdate"
